@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en"><head>
+<html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SDLC Compliance Dashboard</title>
@@ -13,17 +13,17 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#136dec",
-            "background-light": "#F9FAFB",
-            "background-dark": "#121212",
-            "card-light": "#FFFFFF",
-            "card-dark": "#1E1E1E",
+            "primary": "#8A63D2", // Subtle purple for primary actions/accents
+            "background-light": "#F9FAFB", // Kept for potential light mode toggle
+            "background-dark": "#121828", // Deep blue/gray dark background
+            "card-light": "#FFFFFF", // Kept for potential light mode toggle
+            "card-dark": "#1C2438", // Lighter deep blue/gray card background
             "compliance-green": "#2ECC71",
             "warning-orange": "#F4B400",
             "alert-red": "#E74C3C",
-            "text-dark": "#2C3E50",
-            "text-light": "#FFFFFF",
-            "subtext-gray": "#6b7280"
+            "text-dark": "#2C3E50", // Kept for potential light mode toggle
+            "text-light": "#E0E0E0", // Highly legible light gray for text
+            "subtext-gray": "#98A2B3" // Lighter gray for subtext
           },
           fontFamily: {
             "display": ["Inter", "Roboto", "sans-serif"]
@@ -42,11 +42,9 @@
     body {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      background-color: #F9FAFB;
-    }
+      background-color: #F9FAFB;}
     .dark body {
-      background-color: #121212;
-    }
+      background-color: #121828;}
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -78,8 +76,7 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.4);
-      align-items: center;
+      background-color: rgba(0, 0, 0, 0.6);align-items: center;
       justify-content: center;
     }
     .popup:target {
@@ -97,9 +94,7 @@
       position: relative;
     }
     .dark .popup-content {
-      background-color: #1E1E1E;
-      border-color: #444;
-    }
+      background-color: #1C2438;border-color: #374151;}
     .close-button {
       color: #aaa;
       position: absolute;
@@ -116,11 +111,11 @@
       cursor: pointer;
     }
     .dark .close-button {
-      color: #ccc;
+      color: #98A2B3;
     }
     .dark .close-button:hover,
     .dark .close-button:focus {
-      color: white;
+      color: #E0E0E0;
     }
   </style>
 <style>
@@ -134,63 +129,63 @@
     }
   </style>
   </head>
-<body class="font-display bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light">
+<body class="font-display bg-background-dark text-text-light font-medium">
 <div class="popup" id="reasoning-popup">
 <div class="popup-content">
 <a class="close-button" href="#">×</a>
-<h3 class="text-lg font-bold mb-4">Reasoning</h3>
-<p class="text-sm text-subtext-gray dark:text-gray-400">Specified Reasoning</p>
+<h3 class="text-lg font-bold mb-4 text-text-light">Reasoning</h3>
+<p class="text-sm text-subtext-gray">Specified Reasoning</p>
 </div>
 </div>
 <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<header class="sticky top-0 z-10 flex items-center bg-white dark:bg-card-dark dark:border-b dark:border-gray-700 p-4 shadow-sm">
-<div class="text-text-dark dark:text-text-light" data-icon="Shield">
+<header class="sticky top-0 z-10 flex items-center bg-card-dark border-b border-gray-800 p-4 shadow-md shadow-black/20">
+<div class="text-text-light" data-icon="Shield">
 <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91c4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.92V13H5V6.3l7-3.11v9.8z"></path>
 </svg>
 </div>
 <div class="relative flex-1 mx-4">
-<h1 class="text-lg font-bold text-center text-text-dark dark:text-text-light">SDLC Compliance Matrix</h1>
+<h1 class="text-lg font-bold text-center text-text-light">SDLC Compliance Matrix</h1>
 </div>
 <div class="flex w-8 items-center justify-end">
-<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 text-text-dark dark:text-text-light gap-2 text-base font-bold min-w-0 p-0">
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 text-text-light gap-2 text-base font-bold min-w-0 p-0">
 <span class="material-symbols-outlined text-2xl">menu</span>
 </button>
 </div>
 </header>
 <main class="p-4 md:p-6 fade-in">
 <section class="space-y-6">
-<div class="flex flex-wrap justify-center gap-4 mb-4 text-xs text-subtext-gray dark:text-gray-400">
+<div class="flex flex-wrap justify-center gap-4 mb-4 text-xs text-subtext-gray">
 <div class="flex items-center gap-2"><span>🟢</span> Fully Comply</div>
 <div class="flex items-center gap-2"><span>🟠</span> Partial Comply</div>
 <div class="flex items-center gap-2"><span>🔴</span> Not Comply</div>
 </div>
-<div class="bg-card-light dark:bg-card-dark rounded-lg shadow-soft flex flex-col w-full">
-<div class="p-4 border-b border-gray-200 dark:border-gray-700">
-<h2 class="text-text-dark dark:text-text-light text-xl font-medium">Tech SDLC Matrix</h2>
+<div class="bg-card-dark rounded-lg shadow-lg shadow-black/20 flex flex-col w-full">
+<div class="p-4 border-b border-gray-800">
+<h2 class="text-text-light text-xl font-medium">Tech SDLC Matrix</h2>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-sm text-left whitespace-nowrap">
-<thead class="bg-gray-50 dark:bg-gray-700/50">
+<thead class="bg-gray-900/50">
 <tr>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300">Project Name</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300">System</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300">Department</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300">Project End Date</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">1. Initiation &amp; Planning</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">2. Requirements &amp; Analysis</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">3. Design &amp; Architecture</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">4. Development &amp; Testing</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">5. Deployment &amp; Maintenance</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">Overall Compliance %</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs">Project Name</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs">System</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs">Department</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs">Project End Date</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">1. Initiation &amp; Planning</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">2. Requirements &amp; Analysis</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">3. Design &amp; Architecture</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">4. Development &amp; Testing</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">5. Deployment &amp; Maintenance</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">Overall Compliance %</th>
 </tr>
 </thead>
 <tbody>
-<tr class="border-b dark:border-gray-700">
-<td class="p-3 font-medium">Project 1</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">System 1</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">Core Tech</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">2024-12-31</td>
+<tr class="border-b border-gray-800">
+<td class="p-3 font-medium text-text-light">Project 1</td>
+<td class="p-3 text-subtext-gray">System 1</td>
+<td class="p-3 text-subtext-gray">Core Tech</td>
+<td class="p-3 text-subtext-gray">2024-12-31</td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
@@ -198,11 +193,11 @@
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center font-bold text-compliance-green">98%</td>
 </tr>
-<tr class="border-b dark:border-gray-700">
-<td class="p-3 font-medium">Project 2</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">System 2</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">Info Security</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">2025-03-15</td>
+<tr class="border-b border-gray-800">
+<td class="p-3 font-medium text-text-light">Project 2</td>
+<td class="p-3 text-subtext-gray">System 2</td>
+<td class="p-3 text-subtext-gray">Info Security</td>
+<td class="p-3 text-subtext-gray">2025-03-15</td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><a class="text-lg" href="#reasoning-popup">🟠</a></td>
@@ -210,11 +205,11 @@
 <td class="p-3 text-center"><a class="text-lg" href="#reasoning-popup">🟠</a></td>
 <td class="p-3 text-center font-bold text-warning-orange">85%</td>
 </tr>
-<tr class="border-b dark:border-gray-700">
-<td class="p-3 font-medium">Project 3</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">System 3</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">Enterprise</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">2024-11-20</td>
+<tr class="border-b border-gray-800">
+<td class="p-3 font-medium text-text-light">Project 3</td>
+<td class="p-3 text-subtext-gray">System 3</td>
+<td class="p-3 text-subtext-gray">Enterprise</td>
+<td class="p-3 text-subtext-gray">2024-11-20</td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><a class="text-lg" href="#reasoning-popup">🟠</a></td>
 <td class="p-3 text-center"><a class="text-lg" href="#reasoning-popup">🔴</a></td>
@@ -225,36 +220,36 @@
 </tbody>
 </table>
 </div>
-<div class="p-3 border-t border-gray-200 dark:border-gray-700">
-<p class="text-xs text-subtext-gray dark:text-gray-400 text-center">Click on 🔴 or 🟠 dots to view specific reasons for Non-Compliance or Partial Compliance.</p>
+<div class="p-3 border-t border-gray-800">
+<p class="text-xs text-subtext-gray text-center">Click on 🔴 or 🟠 dots to view specific reasons for Non-Compliance or Partial Compliance.</p>
 </div>
 </div>
-<div class="bg-card-light dark:bg-card-dark rounded-lg shadow-soft flex flex-col w-full">
-<div class="p-4 border-b border-gray-200 dark:border-gray-700">
-<h2 class="text-text-dark dark:text-text-light text-xl font-medium">Business SDLC Matrix</h2>
+<div class="bg-card-dark rounded-lg shadow-lg shadow-black/20 flex flex-col w-full">
+<div class="p-4 border-b border-gray-800">
+<h2 class="text-text-light text-xl font-medium">Business SDLC Matrix</h2>
 </div>
 <div class="overflow-x-auto">
 <table class="w-full text-sm text-left whitespace-nowrap">
-<thead class="bg-gray-50 dark:bg-gray-700/50">
+<thead class="bg-gray-900/50">
 <tr>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300">Project Name</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300">System</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300">Department</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300">Project End Date</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">1. Initiation &amp; Planning</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">2. Requirements &amp; Analysis</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">3. Design &amp; Architecture</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">4. Development &amp; Testing</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">5. Deployment &amp; Maintenance</th>
-<th class="p-3 font-medium text-gray-600 dark:text-gray-300 text-center">Overall Compliance %</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs">Project Name</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs">System</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs">Department</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs">Project End Date</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">1. Initiation &amp; Planning</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">2. Requirements &amp; Analysis</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">3. Design &amp; Architecture</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">4. Development &amp; Testing</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">5. Deployment &amp; Maintenance</th>
+<th class="p-3 font-medium text-subtext-gray uppercase tracking-wider text-xs text-center">Overall Compliance %</th>
 </tr>
 </thead>
 <tbody>
-<tr class="border-b dark:border-gray-700">
-<td class="p-3 font-medium">Project 1</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">System 1</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">Marketing</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">2025-02-28</td>
+<tr class="border-b border-gray-800">
+<td class="p-3 font-medium text-text-light">Project 1</td>
+<td class="p-3 text-subtext-gray">System 1</td>
+<td class="p-3 text-subtext-gray">Marketing</td>
+<td class="p-3 text-subtext-gray">2025-02-28</td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
@@ -262,11 +257,11 @@
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center font-bold text-compliance-green">95%</td>
 </tr>
-<tr class="border-b dark:border-gray-700">
-<td class="p-3 font-medium">Project 2</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">System 2</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">Sales</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">2025-06-30</td>
+<tr class="border-b border-gray-800">
+<td class="p-3 font-medium text-text-light">Project 2</td>
+<td class="p-3 text-subtext-gray">System 2</td>
+<td class="p-3 text-subtext-gray">Sales</td>
+<td class="p-3 text-subtext-gray">2025-06-30</td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><a class="text-lg" href="#reasoning-popup">🟠</a></td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
@@ -274,11 +269,11 @@
 <td class="p-3 text-center"><a class="text-lg" href="#reasoning-popup">🟠</a></td>
 <td class="p-3 text-center font-bold text-warning-orange">88%</td>
 </tr>
-<tr class="border-b dark:border-gray-700">
-<td class="p-3 font-medium">Project 3</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">System 3</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">HR</td>
-<td class="p-3 text-subtext-gray dark:text-gray-400">2024-10-01</td>
+<tr class="border-b border-gray-800">
+<td class="p-3 font-medium text-text-light">Project 3</td>
+<td class="p-3 text-subtext-gray">System 3</td>
+<td class="p-3 text-subtext-gray">HR</td>
+<td class="p-3 text-subtext-gray">2024-10-01</td>
 <td class="p-3 text-center"><span class="text-lg">🟢</span></td>
 <td class="p-3 text-center"><a class="text-lg" href="#reasoning-popup">🟠</a></td>
 <td class="p-3 text-center"><a class="text-lg" href="#reasoning-popup">🔴</a></td>
@@ -289,8 +284,8 @@
 </tbody>
 </table>
 </div>
-<div class="p-3 border-t border-gray-200 dark:border-gray-700">
-<p class="text-xs text-subtext-gray dark:text-gray-400 text-center">Click on 🔴 or 🟠 dots to view specific reasons for Non-Compliance or Partial Compliance.</p>
+<div class="p-3 border-t border-gray-800">
+<p class="text-xs text-subtext-gray text-center">Click on 🔴 or 🟠 dots to view specific reasons for Non-Compliance or Partial Compliance.</p>
 </div>
 </div>
 </section>
