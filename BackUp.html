@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SDLC Compliance Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#136dec",
+            "background-light": "#F9FAFB",
+            "background-dark": "#121212",
+            "card-light": "#FFFFFF",
+            "card-dark": "#1E1E1E",
+            "compliance-green": "#2ECC71",
+            "warning-orange": "#F4B400",
+            "alert-red": "#E74C3C",
+            "text-dark": "#2C3E50",
+            "text-light": "#FFFFFF",
+            "subtext-gray": "#6b7280"
+          },
+          fontFamily: {
+            "display": ["Inter", "Roboto", "sans-serif"]
+          },
+          borderRadius: {
+            "lg": "8px",
+          },
+          boxShadow: {
+            'soft': '0 2px 8px rgba(0, 0, 0, 0.08)',
+          }
+        },
+      },
+    }
+    </script>
+<style>
+        body {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          background-color: #F9FAFB;
+        }
+        .dark body {
+            background-color: #121212;
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .fade-in {
+          animation: fadeIn 0.5s ease-out forwards;
+        }.tooltip .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            align-items: center;
+            justify-content: center;
+        }
+        .popup:target {
+            display: flex;
+        }
+        .popup-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .dark .popup-content {
+            background-color: #1E1E1E;
+            border-color: #444;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .dark .close-button {
+            color: #ccc;
+        }
+        .dark .close-button:hover,
+        .dark .close-button:focus {
+            color: white;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light">
+<div class="popup" id="reasoning-popup">
+<div class="popup-content">
+<a class="close-button" href="#">×</a>
+<h3 class="text-lg font-bold mb-4">Reasoning</h3>
+<p class="text-sm text-subtext-gray dark:text-gray-400">Specified Reasoning</p>
+</div>
+</div>
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<header class="sticky top-0 z-10 flex items-center bg-white dark:bg-card-dark dark:border-b dark:border-gray-700 p-4 shadow-sm">
+<div class="text-text-dark dark:text-text-light" data-icon="Shield">
+<svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91c4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.92V13H5V6.3l7-3.11v9.8z"></path>
+</svg>
+</div>
+<div class="relative flex-1 mx-4">
+<h1 class="text-lg font-bold text-center text-text-dark dark:text-text-light">SDLC Governance Dashboard</h1>
+</div>
+<div class="flex w-8 items-center justify-end">
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 text-text-dark dark:text-text-light gap-2 text-base font-bold min-w-0 p-0">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</div>
+</header>
+<main class="p-6 fade-in">
+<section class="space-y-6">
+<div class="flex items-center justify-between gap-4">
+<h1 class="text-2xl font-bold text-text-dark dark:text-text-light">Overview</h1>
+<div class="relative">
+<select class="appearance-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-2 pl-3 pr-8 text-sm font-medium text-text-dark dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary">
+<option>All Department</option>
+<option>Innovations</option>
+<option>Core Tech</option>
+<option>Enterprise</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="relative tooltip rounded-lg bg-card-light dark:bg-card-dark p-4 shadow-soft">
+<div class="tooltip-text absolute -top-10 left-1/2 z-10 -translate-x-1/2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Weighted average across all SDLC phases.</div>
+<h3 class="text-sm font-medium text-subtext-gray dark:text-gray-400 text-center">Average SDLC Maturity</h3>
+<div class="flex items-center justify-center my-3">
+<div class="relative h-28 w-28">
+<svg class="h-full w-full" fill="none" stroke-width="10" viewBox="0 0 100 100">
+<circle class="text-gray-200 dark:text-gray-700" cx="50" cy="50" r="45" stroke="currentColor"></circle>
+<circle class="text-warning-orange" cx="50" cy="50" r="45" stroke="currentColor" stroke-dasharray="282.7" stroke-dashoffset="50.886" stroke-linecap="round" transform="rotate(-90 50 50)"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-3xl font-bold text-text-dark dark:text-text-light">82%</span>
+</div>
+</div>
+</div>
+<p class="text-xs text-subtext-gray flex items-center justify-center gap-1">
+<span>Target ≥ 85% |</span>
+<span class="text-compliance-green flex items-center">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>+5% vs last quarter.
+</span>
+</p>
+</div>
+<div class="relative rounded-lg bg-card-light dark:bg-card-dark p-4 shadow-soft flex flex-col border-l-4 border-warning-orange">
+<div class="flex items-start justify-between mb-2">
+<h3 class="text-sm font-medium text-subtext-gray dark:text-gray-400 pr-8">High-Risk Projects Below Target (GRI)</h3>
+<div class="relative tooltip">
+<span class="material-symbols-outlined text-subtext-gray text-base cursor-help">info</span>
+<div class="tooltip-text absolute -top-2 right-0 z-10 w-48 rounded bg-gray-900 p-2 text-xs text-white text-left translate-y-[-100%]">GRI = Percentage of high-risk projects with overall compliance below 80%. High-risk is based on project complexity, visibility, or business impact.</div>
+</div>
+</div>
+<p class="text-3xl font-bold text-text-dark dark:text-text-light mt-1">7 of 25 projects (28%)</p>
+<div class="mt-4 pt-3 space-y-2 border-t border-gray-200 dark:border-gray-700">
+<div class="flex items-center gap-2">
+<span class="text-alert-red text-lg">🔴</span>
+<span class="text-xs font-medium text-text-dark dark:text-gray-300">Critical projects: 3 below target</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-warning-orange text-lg">🟠</span>
+<span class="text-xs font-medium text-text-dark dark:text-gray-300">Moderate projects: 5 below target</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-compliance-green text-lg">🟢</span>
+<span class="text-xs font-medium text-text-dark dark:text-gray-300">Low-risk projects: 12 compliant</span>
+</div>
+</div>
+<p class="text-xs text-subtext-gray dark:text-gray-500 mt-auto pt-3">Risk level is determined by project priority and governance classification.</p>
+</div>
+<div class="relative rounded-lg bg-card-light dark:bg-card-dark shadow-soft flex flex-col">
+<div class="p-4 border-b border-gray-200 dark:border-gray-700">
+<h3 class="text-sm font-medium text-subtext-gray dark:text-gray-400 mb-1">Projects Below 80% Compliance by SDLC Phase</h3>
+<p class="text-xs text-subtext-gray dark:text-gray-300 font-medium">Total: 9 projects require governance support</p>
+</div>
+<div class="p-4 flex-grow">
+<div class="space-y-4 text-sm">
+<div aria-label="Design and Architecture phase: 4 projects below 80 percent." class="grid grid-cols-12 items-center gap-2">
+<span class="col-span-4 truncate text-subtext-gray dark:text-gray-400 text-xs font-medium">3. Design &amp; Architecture</span>
+<span class="col-span-4 text-center text-xs text-subtext-gray dark:text-gray-300 font-medium">4 projects · 44%</span>
+<div class="col-span-4 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-5">
+<div class="bg-alert-red h-5 rounded-full flex items-center justify-center text-white text-xs font-bold" style="width: 44%">4</div>
+</div>
+</div>
+<div aria-label="Development and Testing phase: 3 projects below 80 percent." class="grid grid-cols-12 items-center gap-2">
+<span class="col-span-4 truncate text-subtext-gray dark:text-gray-400 text-xs font-medium">4. Development &amp; Testing</span>
+<span class="col-span-4 text-center text-xs text-subtext-gray dark:text-gray-300 font-medium">3 projects · 33%</span>
+<div class="col-span-4 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-5">
+<div class="bg-warning-orange h-5 rounded-full flex items-center justify-center text-white text-xs font-bold" style="width: 33%">3</div>
+</div>
+</div>
+<div aria-label="Deployment and Maintenance phase: 2 projects below 80 percent." class="grid grid-cols-12 items-center gap-2">
+<span class="col-span-4 truncate text-subtext-gray dark:text-gray-400 text-xs font-medium">5. Deployment &amp; Maintenance</span>
+<span class="col-span-4 text-center text-xs text-subtext-gray dark:text-gray-300 font-medium">2 projects · 22%</span>
+<div class="col-span-4 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-5">
+<div class="bg-warning-orange h-5 rounded-full flex items-center justify-center text-white text-xs font-bold" style="width: 22%">2</div>
+</div>
+</div>
+</div>
+<details class="mt-4 group">
+<summary class="cursor-pointer text-xs font-medium text-primary flex items-center gap-1">
+                            Frequent Issues Identified
+                            <span class="material-symbols-outlined text-sm transition-transform duration-200 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="mt-2 pl-2 border-l-2 border-gray-200 dark:border-gray-600">
+<ul class="list-disc list-inside text-xs text-subtext-gray dark:text-gray-400 space-y-1">
+<li>Missing design or security approval</li>
+<li>UAT evidence incomplete or delayed</li>
+<li>No formal Go/No-Go or rollback plan</li>
+</ul>
+</div>
+</details>
+</div>
+<div class="border-t border-gray-200 dark:border-gray-700 mt-auto">
+<a class="block text-center p-3 text-primary text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700/50" href="#project-compliance-table">
+                        View Project Details
+                        <span class="material-symbols-outlined text-sm align-middle">arrow_downward</span>
+</a>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start mt-3">
+<div class="bg-card-light dark:bg-card-dark rounded-lg shadow-soft flex flex-col h-full" id="project-compliance-table">
+<div class="p-4">
+<h2 class="text-text-dark dark:text-text-light text-xl font-medium">Project SDLC Matrix</h2>
+</div>
+<div class="overflow-x-auto flex-grow">
+<table class="w-full text-sm text-left whitespace-nowrap">
+<thead class="bg-text-dark text-text-light dark:bg-gray-700 dark:text-gray-200">
+<tr>
+<th class="p-3 font-medium">Project Name</th>
+<th class="p-3 font-medium">Department</th>
+<th class="p-3 font-medium text-center">Initiation &amp; Planning</th>
+<th class="p-3 font-medium text-center">Requirements &amp; Analysis</th>
+<th class="p-3 font-medium text-center">Design &amp; Architecture</th>
+<th class="p-3 font-medium text-center">Development &amp; Testing</th>
+<th class="p-3 font-medium text-center">Deployment &amp; Maintenance</th>
+<th class="p-3 font-medium text-center">Overall</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b dark:border-gray-700 bg-green-50 dark:bg-green-900/20">
+<td class="p-3 font-medium">Project 1</td>
+<td class="p-3 text-subtext-gray dark:text-gray-400">Innovation</td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center font-medium">100%</td>
+</tr>
+<tr class="border-b dark:border-gray-700 bg-orange-50 dark:bg-orange-900/20">
+<td class="p-3 font-medium">Project 2</td>
+<td class="p-3 text-subtext-gray dark:text-gray-400">Corporate Systems</td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><a class="relative tooltip flex justify-center" href="#reasoning-popup"><div class="h-3 w-3 rounded-full bg-warning-orange cursor-pointer"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Partial Comply - Click for details</div></a></td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><a class="relative tooltip flex justify-center" href="#reasoning-popup"><div class="h-3 w-3 rounded-full bg-warning-orange cursor-pointer"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Partial Comply - Click for details</div></a></td>
+<td class="p-3 text-center font-medium">80%</td>
+</tr>
+<tr class="border-b dark:border-gray-700 bg-red-50 dark:bg-red-900/20">
+<td class="p-3 font-medium">Project 3</td>
+<td class="p-3 text-subtext-gray dark:text-gray-400">Info Security</td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><div class="relative tooltip flex justify-center"><div class="h-3 w-3 rounded-full bg-compliance-green"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Fully Comply</div></div></td>
+<td class="p-3 text-center"><a class="relative tooltip flex justify-center" href="#reasoning-popup"><div class="h-3 w-3 rounded-full bg-alert-red cursor-pointer"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Not Comply - Click for details</div></a></td>
+<td class="p-3 text-center"><a class="relative tooltip flex justify-center" href="#reasoning-popup"><div class="h-3 w-3 rounded-full bg-warning-orange cursor-pointer"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Partial Comply - Click for details</div></a></td>
+<td class="p-3 text-center"><a class="relative tooltip flex justify-center" href="#reasoning-popup"><div class="h-3 w-3 rounded-full bg-alert-red cursor-pointer"></div><div class="tooltip-text absolute bottom-full mb-2 w-max rounded bg-gray-900 px-2 py-1 text-xs text-white">Not Comply - Click for details</div></a></td>
+<td class="p-3 text-center font-medium">50%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-gray-200 dark:border-gray-700">
+<p class="text-xs text-subtext-gray dark:text-gray-400 text-center">Click on 🔴 or 🟠 dots to view specific reasons for Non-Compliance or Partial Compliance.</p>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-lg shadow-soft flex flex-col h-full">
+<div class="p-4">
+<h2 class="text-text-dark dark:text-text-light text-xl font-medium">Phase Compliance Overview</h2>
+</div>
+<div class="flex flex-col justify-center flex-grow p-4">
+<div class="grid grid-cols-5 gap-3 items-start">
+<div class="flex flex-col gap-2 text-center group">
+<div class="h-36 w-full flex flex-col-reverse rounded-md overflow-hidden relative cursor-pointer text-white text-xs font-bold">
+<div class="bg-compliance-green hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 96%;"><span>96%</span></div>
+<div class="bg-warning-orange hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 4%;"><span>2%</span></div>
+<div class="bg-alert-red hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 0%;"><span>2%</span></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium leading-tight mt-2">1. Initiation &amp; Planning</p>
+</div>
+<div class="flex flex-col gap-2 text-center group">
+<div class="h-36 w-full flex flex-col-reverse rounded-md overflow-hidden relative cursor-pointer text-white text-xs font-bold">
+<div class="bg-compliance-green hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 90%;"><span>90%</span></div>
+<div class="bg-warning-orange hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 8%;"><span>8%</span></div>
+<div class="bg-alert-red hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 2%;"><span>2%</span></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium leading-tight mt-2">2. Requirements &amp; Analysis</p>
+</div>
+<div class="flex flex-col gap-2 text-center group">
+<div class="h-36 w-full flex flex-col-reverse rounded-md overflow-hidden relative cursor-pointer text-white text-xs font-bold">
+<div class="bg-compliance-green hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 70%;"><span>70%</span></div>
+<div class="bg-warning-orange hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 20%;"><span>20%</span></div>
+<div class="bg-alert-red hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 10%;"><span>10%</span></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium leading-tight mt-2">3. Design &amp; Architecture</p>
+</div>
+<div class="flex flex-col gap-2 text-center group">
+<div class="h-36 w-full flex flex-col-reverse rounded-md overflow-hidden relative cursor-pointer text-white text-xs font-bold">
+<div class="bg-compliance-green hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 78%;"><span>78%</span></div>
+<div class="bg-warning-orange hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 15%;"><span>15%</span></div>
+<div class="bg-alert-red hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 7%;"><span>7%</span></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium leading-tight mt-2">4. Development &amp; Testing</p>
+</div>
+<div class="flex flex-col gap-2 text-center group">
+<div class="h-36 w-full flex flex-col-reverse rounded-md overflow-hidden relative cursor-pointer text-white text-xs font-bold">
+<div class="bg-compliance-green hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 82%;"><span>82%</span></div>
+<div class="bg-warning-orange hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 10%;"><span>10%</span></div>
+<div class="bg-alert-red hover:brightness-110 flex items-center justify-center min-h-[20px]" style="height: 8%;"><span>8%</span></div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium leading-tight mt-2">5. Deployment &amp; Maintenance</p>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-gray-200 dark:border-gray-700">
+<div class="flex items-center justify-center gap-4 text-xs text-subtext-gray dark:text-gray-400">
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-3 rounded-full bg-compliance-green"></div>
+<span>Fully Comply</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-3 rounded-full bg-warning-orange"></div>
+<span>Partial</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-3 rounded-full bg-alert-red"></div>
+<span>Not Comply</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-8 mb-8">
+<h2 class="text-text-dark dark:text-text-light text-xl font-medium">Compliance by Department</h2>
+<div class="rounded-lg bg-white dark:bg-card-dark p-4 shadow-soft mt-3">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 group">
+<p class="w-1/3 text-gray-600 dark:text-gray-300 font-medium text-sm truncate">Minor Food Tech</p>
+<div class="w-2/3 bg-gray-200 dark:bg-gray-700 rounded-lg h-6 overflow-hidden relative">
+<div class="bg-compliance-green h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-300 group-hover:brightness-110" style="width: 94%;">
+<span class="text-white font-medium text-sm">94%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<p class="w-1/3 text-gray-600 dark:text-gray-300 font-medium text-sm truncate">Minor Hotel Tech</p>
+<div class="w-2/3 bg-gray-200 dark:bg-gray-700 rounded-lg h-6 overflow-hidden relative">
+<div class="bg-compliance-green h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-300 group-hover:brightness-110" style="width: 90%;">
+<span class="text-white font-medium text-sm">90%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<p class="w-1/3 text-gray-600 dark:text-gray-300 font-medium text-sm truncate">Minor Lifestyle Tech</p>
+<div class="w-2/3 bg-gray-200 dark:bg-gray-700 rounded-lg h-6 overflow-hidden relative">
+<div class="bg-compliance-green h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-300 group-hover:brightness-110" style="width: 88%;">
+<span class="text-white font-medium text-sm">88%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<p class="w-1/3 text-gray-600 dark:text-gray-300 font-medium text-sm truncate">Corporate Systems</p>
+<div class="w-2/3 bg-gray-200 dark:bg-gray-700 rounded-lg h-6 overflow-hidden relative">
+<div class="bg-warning-orange h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-300 group-hover:brightness-110" style="width: 82%;">
+<span class="text-white font-medium text-sm">82%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<p class="w-1/3 text-gray-600 dark:text-gray-300 font-medium text-sm truncate">Innovation</p>
+<div class="w-2/3 bg-gray-200 dark:bg-gray-700 rounded-lg h-6 overflow-hidden relative">
+<div class="bg-warning-orange h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-300 group-hover:brightness-110" style="width: 78%;">
+<span class="text-white font-medium text-sm">78%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<p class="w-1/3 text-gray-600 dark:text-gray-300 font-medium text-sm truncate">Operations</p>
+<div class="w-2/3 bg-gray-200 dark:bg-gray-700 rounded-lg h-6 overflow-hidden relative">
+<div class="bg-warning-orange h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-300 group-hover:brightness-110" style="width: 74%;">
+<span class="text-white font-medium text-sm">74%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<p class="w-1/3 text-gray-600 dark:text-gray-300 font-medium text-sm truncate">Info Security</p>
+<div class="w-2/3 bg-gray-200 dark:bg-gray-700 rounded-lg h-6 overflow-hidden relative">
+<div class="bg-alert-red h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-300 group-hover:brightness-110" style="width: 65%;">
+<span class="text-white font-medium text-sm">65%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
